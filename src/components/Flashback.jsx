@@ -65,12 +65,38 @@ const Flashback = () => {
         return () => ctx.revert();
     }, []);
 
+    // CHANGE YOUR IMAGE PATHS HERE
     const memories = [
-        { year: "2022", title: "Genesis", color: "#333" },
-        { year: "2023", title: "Momentum", color: "#444" },
-        { year: "2024", title: "Peak", color: "#555" },
-        { year: "2025", title: "Horizon", color: "#666" },
-        { year: "Legacy", title: "Forever", color: "#777" }
+        { 
+            year: "2022", 
+            title: "Level 1", 
+            color: "#FFD700",
+            image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGFja2VyfGVufDB8fDB8fHww"  // <- CHANGE THIS PATH
+        },
+        { 
+            year: "2023", 
+            title: "Level 2", 
+            color: "#00D9FF",
+            image: "https://plus.unsplash.com/premium_photo-1714618835760-5b2175ad3249?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGFja2VyfGVufDB8fDB8fHww"  // <- CHANGE THIS PATH
+        },
+        { 
+            year: "2024", 
+            title: "Level 3", 
+            color: "#FF0080",
+            image: "https://images.unsplash.com/photo-1592609930961-219235eded71?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE1fHxoYWNrZXJ8ZW58MHx8MHx8fDA%3D"  // <- CHANGE THIS PATH
+        },
+        { 
+            year: "2025", 
+            title: "Level 4", 
+            color: "#7B61FF",
+            image: "https://images.unsplash.com/photo-1532522750741-628fde798c73?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGhhY2tlcnxlbnwwfHwwfHx8MA%3D%3D"  // <- CHANGE THIS PATH
+        },
+        { 
+            year: "Legacy", 
+            title: "Level 5", 
+            color: "#00FF88",
+            image: "https://images.unsplash.com/photo-1608742213509-815b97c30b36?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fGhhY2tlcnxlbnwwfHwwfHx8MA%3D%3D"  // <- CHANGE THIS PATH
+        }
     ];
 
     const marqueeItems = [...memories, ...memories];
@@ -112,12 +138,71 @@ const Flashback = () => {
                             flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            border: '1px solid var(--glass-border)',
-                            background: 'var(--glass-bg)'
+                            border: `1px solid ${mem.color}40`,
+                            background: 'var(--glass-bg)',
+                            boxShadow: `0 0 20px ${mem.color}20`
                         }}>
-                            {/* No complex text masking inside moving elements to avoid perf issues, just standard fade/opacity on container is enough for "Entrance" */}
-                            <h3 style={{ fontSize: '4rem', fontWeight: 900, color: 'rgba(255,255,255,0.05)', position: 'absolute' }}>{mem.year}</h3>
-                            <p style={{ zIndex: 1, fontSize: '1.2rem', color: 'var(--text-main)', fontWeight: 600 }}>{mem.title}</p>
+                            {/* Background Image */}
+                            {mem.image && (
+                                <div style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    backgroundImage: `url(${mem.image})`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    filter: 'brightness(0.4)',
+                                    zIndex: 0
+                                }}></div>
+                            )}
+
+                            {/* Dark Overlay */}
+                            <div style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                background: 'linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7))',
+                                zIndex: 1
+                            }}></div>
+
+                            {/* Year Number BG */}
+                            <h3 style={{ 
+                                fontSize: '4rem', 
+                                fontWeight: 900, 
+                                color: `${mem.color}15`, 
+                                position: 'absolute',
+                                zIndex: 2
+                            }}>
+                                {mem.year}
+                            </h3>
+
+                            {/* Title */}
+                            <p style={{ 
+                                zIndex: 3, 
+                                fontSize: '1.5rem', 
+                                color: mem.color, 
+                                fontWeight: 700,
+                                textShadow: `0 0 20px ${mem.color}80`,
+                                letterSpacing: '2px',
+                                textTransform: 'uppercase'
+                            }}>
+                                {mem.title}
+                            </p>
+
+                            {/* Accent Border Glow */}
+                            <div style={{
+                                position: 'absolute',
+                                bottom: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '3px',
+                                background: `linear-gradient(90deg, transparent, ${mem.color}, transparent)`,
+                                zIndex: 4
+                            }}></div>
                         </div>
                     ))}
                 </div>

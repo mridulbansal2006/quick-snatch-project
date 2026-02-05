@@ -9,6 +9,7 @@ import EventDetails from "./components/EventDetails";
 import Flashback from "./components/Flashback";
 import Registration from "./components/Registration";
 import About from "./components/About";
+import Footer from "./components/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,6 +58,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/join" element={<JoinPage />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
